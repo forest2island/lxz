@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>音乐</title>
+	<link href="css/style.css" rel="stylesheet" type="text/css"/>
+	<style type="text/css">
+	body{
+		background: #349862;
+		text-align: center;
+	}
+	#menu {
+	width:130px;
+	border:1px solid #cccccc;
+	padding:3px;
+	font:12px/18px Tahoma, Arial, Helvetica, sans-serif;
+	float: left;
+}
+#menu * {
+	margin:0;
+	padding:0;
+}
+#menu li {
+	list-style:none;
+	border-bottom:1px solid #ffce88;/*设置列表项之间的间隔线*/
+}
+#menu li a {
+	display:block;
+	background:#fbd346 url(menu_bg.jpg) repeat-y left;
+	color:#000;
+	text-decoration:none;/*取消超链接文字下划线效果*/
+	padding:5px 5px 10px 15px;/*设置内边距，目的是将a元素所在的容器扩展出一定的空间，用于显示背景图像*/
+}
+#menu li a:hover {
+	background:#f7941d url(menu_h.jpg) repeat-x top;
+}
+#menu li a.current, #menu li a:hover.current {
+	background:#f7941d url(menu_h.jpg) repeat-x top;
+}
+#menu a:hover span.intro {
+  font-size:12px;
+  display:block; 
+  position:absolute; /*绝对定位*/
+  left:150px; 
+  top:0px; 
+  padding:5px; 
+  width:100px;
+  height:auto;
+  background-color:#eee; 
+  color:#000; 
+  border:1px dashed #234;
+}
+td{
+    width: 200px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 1px;
+    font-size: 40px;
+    font-family: 华文行楷；
+}
+.left{
+	float: left;
+}
+
+	</style>
+</head>
+<body>
+<div class="top1">
+	<div class="top-left"><img src="images/logo.jpg" height="70"></div>
+	<div class="top-right"><a href="./register.html"><input type="button" name="button" value="登录"/></a></div>
+</div>
+<div id="menu">
+  <ul>
+    <li><a href="#" class="current">首页</a></li>
+    <li><a href="#">作品欣赏</a></li>
+    <li><a href="#">最新活动</a></li>
+    <li><a href="#">新闻动态</a></li>
+    <li><a href="#">联系我们</a></li>
+    <li><a href="#">会员注册</a></li>
+  </ul>
+</div>
+<div class="left">
+	<table border="0" align="center">
+		<tr>
+			<td rowspan="2" width="200">music</td>
+			<td><img src="images/fish.jpg" width="170" height="190"></br>大雨</td>
+			<td><img src="images/ok.jpg" width="170" height="190"></td>
+			<td><img src="images/you.jpg" width="170" height="190"></td>
+		</tr>
+		<tr>
+			<td><img src="images/understand.jpg" width="170" height="190"></td>
+			<td><img src="images/gorgeous.jpg" width="170" height="190"></td>
+			<td><img src="images/go.jpg" width="170" height="190"></td>
+		</tr>
+	</table>
+</div>
+	
+</body>
+</html>

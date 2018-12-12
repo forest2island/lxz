@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Interpreter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/mdui.css">
+    <script src="js/mdui.js"></script>
+</head>
+<body class="mdui-theme-primary-blue-grey mdui-theme-accent-teal mdui-drawer-body-left mdui-appbar-with-toolbar">
+
+<div class="mdui-drawer mdui-shadow-2" id="left-drawer">
+    <div class="mdui-text-center">
+        <p></p>
+        <p>Interpreter <strong>Instant</strong></p></div>
+    <ul class="mdui-list">
+        <li class="mdui-list-item mdui-ripple" onclick="downloadDoc()">
+            <i class="mdui-list-item-icon mdui-icon material-icons">move_to_inbox</i>
+            <div class="mdui-list-item-content">下载当前会话记录</div>
+        </li>
+        <li class="mdui-list-item mdui-ripple" id = "send">
+            <i class="mdui-list-item-icon mdui-icon material-icons">send</i>
+            <div class="mdui-list-item-content">发送投屏字幕</div>
+        </li>
+
+        <li class="mdui-list-item mdui-ripple" onclick="dialogControl.open()">
+            <i class="mdui-list-item-icon mdui-icon material-icons">translate</i>
+            <div class="mdui-list-item-content">语言 / Language</div>
+        </li>
+
+        <li class="mdui-subheader"> 会话状态</li>
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">info</i>
+            <div class="mdui-list-item-content" id="session-status">已连接</div>
+        </li>
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">close</i>
+            <div class="mdui-list-item-content">退出 Intp. Instant</div>
+        </li>
+    </ul>
+</div>
+<div class="mdui-appbar mdui-appbar-fixed">
+    <div class="mdui-toolbar mdui-color-theme">
+        <button class="mdui-btn mdui-btn-icon" onclick="drawerControl.toggle()"><i class="mdui-icon material-icons">menu</i>
+        </button>
+        <a href="javascript:;" class="mdui-typo-headline">Interpreter</a>
+        <div class="mdui-toolbar-spacer"></div>
+        <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>
+        <button onclick="location.reload()" class="mdui-btn mdui-btn-icon"><i
+                    class="mdui-icon material-icons">refresh</i></button>
+<!--        <button id="btn-open" class="mdui-btn mdui-btn-icon" onclick="menuControl.toggle()"><i class="mdui-icon material-icons">more_vert</i></button>-->
+<!--        <ul class="mdui-menu" id="menu">-->
+<!--            <li class="mdui-menu-item">-->
+<!--                <a href="javascript:;" class="mdui-ripple">下载会话记录</a>-->
+<!--            </li>-->
+<!--            <li class="mdui-menu-item">-->
+<!--                <a href="javascript:;" class="mdui-ripple">语言/Language</a>-->
+<!--            </li>-->
+<!--            <li class="mdui-menu-item">-->
+<!--                <a href="javascript:location.reload();" class="mdui-ripple">刷新</a>-->
+<!--            </li>-->
+<!---->
+<!--        </ul>-->
+
+    </div>
+
+
+</div>
+<div class="mdui-container " id="container">
+    <div class="mdui-card mdui-m-t-2" id="card-welcome">
+        <!-- 卡片的标题和副标题 -->
+        <div class="mdui-card-primary" style="max-height: 180px; min-height: 100px;">
+            <div style="position: absolute; top: 0px; right: 0px">
+                <img src="images/person_with_phone.jpg" style="height: 190px"/>
+            </div>
+            <div class="mdui-col-xs-7 mdui-col-sm-7 mdui-col-md-7 mdui-col-lg-7 ">
+                <div class="mdui-card-primary-title">
+                    <small> Intp. Instant</small>
+                </div>
+                <div class="mdui-card-primary-subtitle">欢迎使用。您可以在此即时查看会话内容而无需下载任何应用，会话的内容将显示在下方。</div>
+            </div>
+        </div>
+        <!-- 卡片的按钮 -->
+        <div class="mdui-card-actions">
+
+        </div>
+    </div>
+
+    <div class="mdui-card mdui-m-t-2" id="card-connection" style="display: none">
+        <!-- 卡片的标题和副标题 -->
+        <div class="mdui-card-primary" style="max-height: 180px; min-height: 100px;">
+            <div style="position: absolute; top: 0px; right: 0px">
+                <img src="images/connection.jpg" style="height: 190px"/>
+            </div>
+            <div class="mdui-col-xs-7 mdui-col-sm-7 mdui-col-md-7 mdui-col-lg-7 ">
+                <div class="mdui-card-primary-title">
+                    <small id="connectionStatus">连接中</small>
+                </div>
+                <div class="mdui-card-primary-subtitle" id="connectionDesc">正在连接会话，若此卡片持续显示，请点击右上方的刷新按钮<i class="mdui-icon material-icons">refresh</i>重试
+                </div>
+            </div>
+        </div>
+        <!-- 卡片的按钮 -->
+        <div class="mdui-card-actions">
+
+        </div>
+    </div>
+</div>
+
+<div class="mdui-dialog" id="language-dialog">
+    <div class="mdui-dialog-title">Language</div>
+    <div class="mdui-dialog-content">
+        <div class="mdui-row">
+            <div class="mdui-card mdui-col-sm-4" style="background: #d50000">
+                <div class="mdui-card-media">
+                    <img src="/images/languages/zh.png" style="max-height: 180px; width: 180px"/>
+                    <div class="mdui-card-media-covered mdui-card-media-covered-top">
+                        <div class="mdui-card-primary">
+                            <div class="mdui-card-primary-title">中文</div>
+                            <div class="mdui-card-primary-subtitle">选择中文（简体）</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mdui-card mdui-col-sm-4" style="background: darkcyan">
+                <div class="mdui-card-media">
+                    <img src="/images/languages/en.png" style="max-height: 180px; width: 180px"/>
+                    <div class="mdui-card-media-covered">
+                        <div class="mdui-card-primary">
+                            <div class="mdui-card-primary-title">English</div>
+                            <div class="mdui-card-primary-subtitle">Select English</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mdui-card mdui-col-sm-4" style="background: darkred">
+                <div class="mdui-card-media">
+                    <img src="/images/languages/ja.png" style="max-height: 180px; width: 180px"/>
+                    <div class="mdui-card-media-covered">
+                        <div class="mdui-card-primary">
+                            <div class="mdui-card-primary-title">日本語</div>
+                            <div class="mdui-card-primary-subtitle">日本語を選択する</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="mdui-dialog-actions">
+        <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>cancel</button>
+        <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>erase</button>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script>
+
+
+
+    var $_GET = (function () {
+        var url = window.document.location.href.toString();
+        var u = url.split("?");
+        if (typeof(u[1]) == "string") {
+            u = u[1].split("&");
+            var get = {};
+            for (var i in u) {
+                var j = u[i].split("=");
+                get[j[0]] = j[1];
+            }
+            return get;
+        } else {
+            return {};
+        }
+    })();
+
+    var drawerControl = new mdui.Drawer('#left-drawer', {swipe: true});
+    //var menuControl = new mdui.Menu('#btn-open', '#menu',{position: "bottom", covered: false});
+
+    var dialogControl = new mdui.Dialog('#language-dialog');
+
+    var sentenceCount = 0;
+    var languages = {zh: "zh", en: "en", ja: "ja", ko: "ko"};
+    var currentMainLang;
+    var currentSubLang;
+    var vCode = "<?php echo $pathinfo[1]; ?>";
+	
+	var webSocket;
+    function connect() {
+        $("#card-connection").slideDown(600);
+        webSocket = new WebSocket("ws://" + "intpserv1.5io2.com:8080/Interpreter/" + "web?viewid=" + vCode);
+        webSocket.onopen = function (event) {
+            mdui.snackbar({
+                message: '已连接到会话代码为 [' + vCode + '] 的会话'
+            });
+            $("#connectionStatus").text("连接完成");
+            $("#connectionDesc").text("你可以查看此会话的内容，新内容将实时推送到这个页面。");
+
+            // console.log("连接成功");
+			ws = webSocket;
+            // console.log(event);
+            $("#session-status").text("已连接到会话 [" + vCode + "]");
+            setTimeout( function(){ //add your code
+                $("#card-connection").slideUp(700);
+            }, 4000 );
+
+        };
+        webSocket.onerror = function (event) {
+            mdui.snackbar({
+                message: '会话错误，请重试'
+            });
+            $("#connectionStatus").text("很抱歉，连接失败");
+            $("#connectionDesc").text("连接到会话服务器失败，请确认您的会话代码是否有误，网络状态是否良好，并点击右上角刷新按钮重试。");
+            //console.log("连接失败");
+            //console.log(event);
+            mdui.alert('非常抱歉，请确认您的会话代码是否有误，网络状态是否良好，并点击右上角刷新按钮重试。');
+            $("#session-status").text("连接到会话 [" + vCode + "] 失败");
+        };
+        webSocket.onclose = function (event) {
+            mdui.snackbar({
+                message: '连接被断开'
+            });
+            $("#connectionStatus").text("会话被远程服务器断开");
+            mdui.alert('非常抱歉，连接被服务器主动断开。请确认您的会话代码是否有误，网络状态是否良好，并点击右上角刷新按钮重试。');
+            $("#connectionDesc").text("连接已断开，请确认您的会话代码是否有误，并点击右上角刷新按钮重试。");
+
+            //console.log(event);
+            $("#session-status").text("会话 [" + vCode + "] 已断开");
+        };
+        webSocket.onmessage = function (event) {
+            console.log(event.data);
+            var data = JSON.parse(event.data);
+            var method = data.method;
+            var params = data.params;         
+			
+			if (method === "notice-new-sentence") {
+                insertSentence(params["recog-result"], params["trans-result"]);
+            } else if (method == "sentence-list"){
+			    array = params["array"];
+				
+				for (var i = 0, len = array.length;i < len;i++){
+					insertSentence(array[i]["text"], array[i]["translate"]);
+				}
+			}
+        };
+        const that = webSocket;
+        $('#send').on('click', function () {
+            mdui.prompt('请输入互动内容',
+            function (value) {
+                var params = { "text": value, "nickename": "" ,"viewid" : vCode};
+                var json = { "method": "interact", "params": params, "id": 0 };
+                that.send(JSON.stringify(json));
+                console.log(JSON.stringify(json));
+                //this.close();
+                mdui.snackbar({
+                message: '互动消息已发送，信息将展示在会话的桌面投影端'
+            });
+            }
+            );
+        });
+    }
+
+    function insertSentence(recog, trans) {
+        $("#container").append(generateCard(recog, trans));
+        $('html,body').animate({scrollTop: $('#sentence' + sentenceCount).offset().top}, 200);
+    }
+
+    function generateCard(recog, trans) {
+        sentenceCount++;
+        return '<div class="mdui-card mdui-m-t-2" id="sentence' + sentenceCount + '">\n' +
+            '    <div class="mdui-card-primary">\n' +
+            '        <div class="mdui-card-primary-title">' + recog + '</div>\n' +
+            '        <div class="mdui-card-primary-subtitle">' + trans + '</div>\n' +
+            '    </div>\n' +
+            '    <div class="mdui-card-actions">\n' +
+            '        <button class="mdui-btn mdui-btn-icon mdui-float-right"><i class="mdui-icon material-icons">expand_more</i></button>\n' +
+            '    </div>\n' +
+            '</div>'
+    }
+    function downloadDoc(){
+		window.location.href = "http://intpserv1.5io2.com:8080/Interpreter/file/download/" + vCode;
+    }
+
+    connect();
+</script>
+
+</body>
+</html>

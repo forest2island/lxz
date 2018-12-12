@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+<style type="text/css">
+  a{
+    text-decoration: none;
+    color: #177643;
+    background-color: #fff;
+  }
+  a:hover{
+      color: #000;
+      background-color: #177643;
+  }
+  ul{
+  	list-style-type: none;
+  }
+  p{
+  	font-style: italic;
+  	color: #000;
+  }
+</style>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../js/player.js"></script>
+<script type="text/javascript" src="../js/playerslider.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	// 焦点图片水平滚动
+	$("#slider1").Xslider({
+		// 默认配置
+		affect: 'scrollx', //效果  有scrollx|scrolly|fade|none
+		speed: 800, //动画速度
+		space: 6000, //时间间隔
+		auto: true, //自动滚动
+		trigger: 'mouseover', //触发事件 注意用mouseover代替hover
+		conbox: '.conbox', //内容容器id或class
+		ctag: 'div', //内容标签 默认为<a>
+		switcher: '.switcher', //切换触发器id或class
+		stag: 'a', //切换器标签 默认为a
+		current:'cur', //当前切换器样式名称
+		rand:false //是否随机指定默认幻灯图片
+	});
+	// 焦点图片垂直滚动
+	$("#slider2").Xslider({
+		affect:'scrolly',
+		ctag: 'div',
+		speed:400
+	});
+	// 焦点图片淡隐淡现
+	$("#slider3").Xslider({
+		affect:'fade',
+		ctag: 'div'
+	});
+	// 选项卡
+	$("#slider4").Xslider({
+		affect:'none',
+		ctag: 'div',
+		speed:10
+	});
+});
+</script>
+</head>
+<body>
+<div class="title">
+	<div class="inside">Forest & Island</div>
+</div>
+<div class="top">>
+  <div class="top-left"><a href="test.html">测试</a></div>
+	<div class="top-left"><a href="recommend.html">推荐</a></div>
+	<div class="top-left"><a href="#">广场</a></div>
+	<div class="top-left"><a href="../WebDisplay/index.html">行译者APP</a></div>
+	<div class="top-left"><a href="./register.html">登录/注册</a></div>
+</div>
+<div class="main">
+  <div class="matter1">
+    <div class="left">
+        <div class="info"></div>
+        <div id="slider3" class="slider">
+		   <div class="conbox">
+			  <div><a href="#" title=""><img src="../images/image_1.jpg" width="900" height="450" /></a></div>
+			  <div><a href="#" title=""><img src="../images/image_2.jpg" width="900" height="450" /></a></div>
+			  <div><a href="#" title=""><img src="../images/image_3.jpg" width="900" height="450" /></a></div>
+			  <div><a href="#" title=""><img src="../images/image_4.jpg" width="900" height="450" /></a></div>
+			  <div><a href="#" title=""><img src="../images/image_5.jpg" width="900" height="450" /></a></div>
+		   </div>
+		   <div class="switcher">
+			  <a href="#" class="cur">1</a>
+			  <a href="#">2</a>
+			  <a href="#">3</a>
+			  <a href="#">4</a>
+			  <a href="#">5</a>
+		   </div>
+        </div>
+    </div>
+    <div class="left1">
+    	<ul>
+    		<li>树深时见鹿</li>
+    		<li>海蓝时见鲸</li>
+    		<li>梦醒时见你</li></br>
+    		<li>欢迎来到森屿岛</li>
+    		<li>于万千繁华世界</li>
+    		<li>觅一座灵魂的憩所</li>
+    		<li>碰撞出灵感的火花</li>
+    		<li>开辟自己的伊甸园</li>
+    	</ul>
+    </div>
+    <div id="Box">
+        <div id="submainBox"><img src="../images/woman.jpg" alt="" height="300" width="140"></div>
+        <div id="content">
+            <div><img src="../images/earth.jpg" alt="" height="230" width="300"></div><div class="under"><a href="recommend.html">进入专属化个人推荐</a></div>
+        </div>
+        <div id="sideBox"><img src="../images/man.jpg" alt="" height="300" width="140"></div>
+    </div>
+    <div class="left2">用科学设计的量表来测量观察不到的人格结构，发现被测试者的潜在才能，深入了解其长处和发展倾向。</br>分为<strong>一般能力倾向测试</strong>和<strong>特殊能力倾向测试</strong>。</br>一般能力倾向测试：测试一个人的多方面的特殊潜能。</br>特殊能力倾向测试：测试一个人的单项潜在能力，比如音乐能力或机械操作能力。</br>人格测试也叫个性测试：测试情绪、需要、动机、兴趣、态度、性格、气质等方面的心理指标。<p align="center"><strong>帮助用户发现更真实的自己！</strong></p>
+    </div>
+    <div class="left3">
+    <ul id="iconWall">
+    <li>
+        <div class="img-3d">
+            <div class="img-front">
+                <img src="../images/water.jpg" alt="" height="300" width="500">
+            </div>
+        </div>
+        <div class="mask">
+            <p>测试环节</p>
+            <a href="test.html">点击进入</a>
+        </div>
+    </li>
+    </ul>
+    </div>
+  </div>
+  <div class="matter2">
+  	<div class="left">社</br>交</br>广</br>场</div>
+  	<div class="left1">
+  	  <div id="tab">
+      <div class="tabList">  
+	        <ul>
+		       <li class="cur">推荐</li>
+		       <li>附近</li>
+		       <li>热门</li>
+		       <li>视频</li>
+	        </ul>
+        </div>
+      <div class="tabCon">
+	    <div class="cur">
+            <p style="font-family:宋体">
+            <a href="#"><img src="../images/rain.jpg" alt="" width="200" height="350"></a>&nbsp;&nbsp;
+            <a href="#"><img src="../images/love.jpg" alt="" width="200" height="350"></a>&nbsp;&nbsp;
+            <a href="#"><img src="../images/pen.png" alt="" width="200" height="350"></a>&nbsp;&nbsp;
+            <a href="#"><img src="../images/flower.png" alt="" width="200"height="350"></a></p> 
+        </div>
+	  <div> 
+        <p align="center">
+          <img src="../images/map.jpg" alt="" width="400"height="350"/>
+        </p>
+      </div>
+      <div>
+      <p>
+        <table border="0" cellspacing="2">
+          <tr>
+            <td>
+              <img src="../images/clothes.jpg" width="200" height="270">
+              <img src="../images/eat.jpg" width="200" height="270">
+              <img src="../images/house.jpg" width="200" height="270">
+              <img src="../images/walk.jpg" width="200" height="270">
+            </td>
+          </tr>
+        </table>
+      </p> 
+      </div>
+      <div> 
+        <p>
+          <video src="../images/movie.mp4" controls="controls" loop=-1></video>
+        </p>
+      </div>
+      </div>
+   </div>
+   </div>
+</div>
+<div id="footer"><h2>地址：山西省晋中市太原师范学院 邮编：030619<br/>Copyright &copy; 2018 Forest & Island All Rights Reserved</h2></div>
+<script>
+window.onload = function() {
+    var oDiv = document.getElementById("tab");
+    var oLi = oDiv.getElementsByTagName("div")[0].getElementsByTagName("li");
+    var aCon = oDiv.getElementsByTagName("div")[1].getElementsByTagName("div");
+    var timer = null;
+    for (var i = 0; i < oLi.length; i++) {
+        oLi[i].index = i;
+        oLi[i].onmouseover = function() {
+            show(this.index);
+        }
+    }
+    function show(a) {
+        index = a;
+        var alpha = 0;
+        for (var j = 0; j < oLi.length; j++) {
+            oLi[j].className = "";
+            aCon[j].className = "";
+            aCon[j].style.opacity = 0;
+            aCon[j].style.filter = "alpha(opacity=0)";
+        }
+        oLi[index].className = "cur";
+        clearInterval(timer);
+        timer = setInterval(function() {
+            alpha += 2;
+            alpha > 100 && (alpha = 100);
+            aCon[index].style.opacity = alpha / 100;
+            aCon[index].style.filter = "alpha(opacity=" + alpha + ")";
+            alpha == 100 && clearInterval(timer);
+        })
+    }
+}
+</script>
+  	</div>
+  </div>
+</div>
+<audio src="../musics/iris - Letter.mp3" autoplay="autoplay" ></audio>
+</body>
+</html>

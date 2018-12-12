@@ -1,0 +1,131 @@
+﻿<html>
+<head>
+<title>音乐推荐--你</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	font-family:"华文细黑";
+	font-size:20px;
+	background:url(../images/music.jpg);
+	background-repeat: no-repeat;
+	background-size:100% 100%;	
+}/*设置页面全局参数*/
+a{
+    text-decoration: none;
+    color: #000;
+}
+a:hover{
+    color: #177643;
+}
+.top{
+    width:100%;
+    height: 70px;
+    background:#00000000;
+    margin: 0 auto;
+    font-size: 20px;
+    line-height: 60px;
+    text-align: center;
+    overflow:hidden;
+}
+.top-left{
+    width:19%;
+    height: 30px;
+    float: left;
+}
+#wrap {
+	margin:0 auto;
+	width:100%;
+}/*设置页面容器的宽度，并居中放置*/
+#header {
+	font-size:80px;
+	height:20%;
+	width:100%;
+	background:#00000000;
+	margin-bottom:5px;
+}/*设置页面头部信息区域*/
+#container {
+	width:100%;
+	height:550px;
+	margin-bottom:5px;
+}/*设置页面中部区域*/
+#mainBox {
+	float:left;/*因为是固定宽度，采用浮动方法可避免ie 3像素bug*/
+	width:40%;
+	height:480px;
+	background:url(../images/you.jpg);
+	background-repeat: no-repeat;
+	background-size:100% 100%;	
+}/*设置页面主内容区域*/
+#sideBox {
+	float:right;
+	width:58%;
+	height:480px;
+	border:2px solid#D6D3C7;/*边框为2px的浅灰色实线*/
+	background:#00000000;/*背景色透明*/
+    text-align:center;  /*文字居中对齐*/
+}/*设侧边栏区域*/
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="top-left"><a href="test.html">测试</a></div>
+    <div class="top-left"><a href="recommend.html">推荐</a></div>
+    <div class="top-left"><a href="index.html">广场</a></div>
+    <div class="top-left"><a href="../WebDisplay/index.html">行译者APP</a></div>
+    <div class="top-left"><a href="./register.html">登录/注册</a></div>
+</div>
+<div id="wrap">
+  <div id="header">你-张雨晴</div>
+  <div id="container">
+    <div id="mainBox"></div>
+    <div id="sideBox"><marquee loop="-1" direction="up" scrollamount="1" width="58%" height="500px">
+                灯纸稀烟人罕<br/>
+湖泊星灿水波松散<br/>
+你经过<br/>
+山茶花开的河畔<br/>
+少有枯黄叶半<br/>
+风也回转<br/>
+听闻闹市与旧摊<br/>
+旋落枫叶红彻树干<br/>
+夜色如霓的窗扇<br/>
+街角雾霭弥散<br/>
+月也遮半<br/>
+你经过<br/>
+廊桥颤抖的枝桠<br/>
+一颗心还是在牵挂<br/>
+再次告别的花<br/>
+留在屋檐篱下<br/>
+剩下他的寒雅<br/>
+飞在无人的角落里沙哑<br/>
+你经过<br/>
+小径泥泞不堪<br/>
+黏附行客过往愁盼<br/>
+你经过<br/>
+雨露笔仄的路边<br/>
+两岸腐草糜烂<br/>
+泪也流干<br/>
+听闻夜幕与傍晚<br/>
+散落系绊红雨弥漫<br/>
+你经过<br/>
+遗落盛开的花园<br/>
+化作春芒野火<br/>
+一片云朵<br/>
+你经过<br/>
+廊桥颤抖的枝桠<br/>
+一颗心还是在牵挂<br/>
+再次告别的花<br/>
+留在屋檐篱下<br/>
+剩下他的寒雅<br/>
+飞在无人的角落里沙哑<br/>
+你踏雪而来的春<br/>
+我走错了夜的门<br/>
+石板上抹去的尘<br/>
+谁梦里错爱的人<br/>
+			</font></marquee></div>
+  </div>
+<audio src="../musics/张雨晴 - 你（独唱版）.mp3" controls="controls" autoplay="autoplay" loop=-1></audio>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Interpreter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="css/mdui.css">
+  <style>
+    .logo-img {
+      max-width: 80px;
+      max-height: 80px
+    }
+
+    .intro-section {
+      padding: 50px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .slide-fade-enter-active {
+      transition: all .3s ease;
+    }
+
+    .slide-fade-leave-active {
+      transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+
+    .slide-fade-enter,
+    .slide-fade-leave-to
+    /* .slide-fade-leave-active for below version 2.1.8 */
+    {
+      transform: translateX(50px);
+      opacity: 0;
+    }
+  </style>
+  <script src="js/mdui.js"></script>
+  <script src="js/framework.js"></script>
+</head>
+
+<body class="mdui-theme-primary-blue-grey mdui-theme-accent-teal mdui-appbar-with-toolbar mdui-appbar-with-tab mdui-appbar-with-tab-larger">
+  <div id="app">
+    <div class="mdui-appbar mdui-appbar-fixed mdui-appbar-scroll-hide mdui-appbar-scroll-toolbar-hide mdui-color-theme">
+      <div class="mdui-toolbar">
+
+        <a href="javascript:;" class="mdui-typo-headline">
+          <span>
+            <img src="images/interpreter_white_md_round.png" style="max-width:40px; margin-top:25px" />
+          </span>
+        </a>
+        <a href="javascript:;" class="mdui-typo-title">
+          Interpreter</a>
+        <div class="mdui-toolbar-spacer"></div>
+        <a href="javascript:;" class="mdui-btn mdui-btn-icon">
+          <i class="mdui-icon material-icons">more_vert</i>
+        </a>
+      </div>
+      <div class="mdui-tab mdui-color-theme mdui-tab-full-width" mdui-tab>
+        <a @click="router='index'" class="mdui-ripple mdui-ripple-white">
+            <i class="mdui-icon material-icons">home</i>
+          <label>概览</label>
+        </a>
+        <a @click="router='download'" class="mdui-ripple mdui-ripple-white">
+            <i class="mdui-icon material-icons">file_download</i>
+          <label>获取</label>
+        </a>
+        <a @click="router='about'" class="mdui-ripple mdui-ripple-white">
+            <i class="mdui-icon material-icons">info_outline</i>
+            <label>关于</label>
+          </a>
+      </div>
+    </div>
+
+    <div>
+
+      
+      <transition-group name="slide-fade">
+        <div v-bind:key="'index'" v-if="router==='index'">
+            <div class="mdui-color-theme intro-section">
+              <img src="images/interpreter_white_md.png" style="width: 50%; max-width: 500px;">
+                <h3>
+                  Interpreter 行译者
+                </h3>
+                <h4>助力跨语言交流。</h4>
+              </div>
+          <!-- 视频 -->
+          <div class="mdui-card mdui-m-t-2">
+            <div class="mdui-card-media">
+              <div class="mdui-video-container">
+                <video class="mdui-video-fluid" autoplay="autoplay" loop="loop" muted="muted" height="100%" style="object-fit: cover">
+                  <source src="videos/intro.mp4" type="video/mp4" /> 很抱歉，Interpreter 不支持您的浏览器。
+                </video>
+              </div>
+              <div class="mdui-card-media-covered mdui-card-media-covered-top mdui-card-media-covered-gradient">
+                <div class="mdui-card-primary">
+                  <div class="mdui-card-primary-title mdui-float-right">
+                    <img class="logo-img" src="images/interpreter_white_md.png">
+                  </div>
+
+                  <div class="mdui-card-primary-title">
+                    <i class="mdui-icon material-icons">translate</i> 跨语言交流助力
+                  </div>
+                  <div class="mdui-card-primary-subtitle">将行译者作为您的私人随身口译。</div>
+                </div>
+              </div>
+              <div class="mdui-card-media-covered mdui-card-media-covered mdui-card-media-covered-gradient">
+                <!-- 移动端隐藏 -->
+                <div class="mdui-row mdui-hidden-xs-down">
+                  <div class="mdui-col-xs-12 mdui-col-sm-5 mdui-col-md-4">
+                    <div class="mdui-card-primary mdui-float-left">
+                      <div class="mdui-card-primary-title">加入到进行中的会话</div>
+                      <div class="mdui-card-primary-subtitle">输入5位会话代码加入现有会话</div>
+                    </div>
+                  </div>
+                  <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-col-md-8">
+                    <div class="mdui-container">
+                      <div class="mdui-textfield mdui-textfield-floating-label">
+                        <i class="mdui-icon material-icons mdui-text-color-white-text ">textsms</i>
+                        <label class="mdui-textfield-label mdui-text-color-white-text ">会话代码</label>
+                        <input id="view-id-1" class="mdui-textfield-input mdui-text-color-white-text " />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="mdui-card-actions">
+                  <button class="mdui-btn mdui-ripple mdui-ripple-white mdui-hidden-xs-down" onclick="loadSession(0)">加入会话</button>
+                  <button onclick="location.href='get'" class="mdui-btn mdui-ripple mdui-ripple-white">下载应用</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 移动端显示 -->
+          <div class="mdui-card mdui-m-t-2 mdui-hidden-sm-up mdui-shadow-0">
+            <div class="mdui-card-media">
+              <div class="mdui-row">
+                <div class="mdui-col-xs-12 mdui-col-sm-5 mdui-col-md-4">
+                  <div class="mdui-card-primary mdui-float-left">
+                    <div class="mdui-card-primary-title">
+                      <i class="mdui-icon material-icons">group_add</i> 加入到进行中的会话</div>
+                    <div class="mdui-card-primary-subtitle">输入5位会话代码加入现有会话</div>
+                  </div>
+                </div>
+                <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-col-md-8">
+                  <div class="mdui-container">
+                    <div class="mdui-textfield mdui-textfield-floating-label">
+                      <i class="mdui-icon material-icons">textsms</i>
+                      <label class="mdui-textfield-label">会话代码</label>
+                      <input id="view-id-2" class="mdui-textfield-input" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mdui-card-actions">
+                <button class="mdui-btn mdui-ripple mdui-ripple-white" onclick="loadSession(1)">加入会话</button>
+              </div>
+            </div>
+          </div>
+          <div class="mdui-card mdui-m-t-2 mdui-shadow-0">
+            <div class="mdui-card-media">
+              <div class="mdui-card-primary">
+                <div class="mdui-card-primary-title">多媒介互动</div>
+                <div class="mdui-card-primary-subtitle">Interpreter 包含三个主要客户端</div>
+              </div>
+
+              <div class="mdui-container">
+                <div class="mdui-row-xs-1 mdui-row-sm-3 mdui-row-md-3 mdui-row-lg-3 mdui-row-xl-3 mdui-grid-list mdui-center">
+                  <div class="mdui-col">
+                    <div class="mdui-grid-tile mdui-ripple" onclick="location.href='get#intp-app'">
+                      <img class="logo-img mdui-center" src="images/interpreter_white_md_round.png" />
+                      <div class="mdui-card-primary mdui-text-center">
+                        <div class="mdui-card-primary-title">Interpreter</div>
+                        <div class="mdui-card-primary-subtitle">运行于移动设备的主要客户端，会话从这里创建。</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mdui-col">
+                    <div class="mdui-grid-tile mdui-ripple" onclick="location.href='get#intp-sd'">
+                      <img class="logo-img mdui-center" src="images/interpreter_display_md_round.png" />
+                      <div class="mdui-card-primary mdui-text-center">
+                        <div class="mdui-card-primary-title">Subtitle Disp.</div>
+                        <div class="mdui-card-primary-subtitle">运行于计算机的字幕显示工具，用于将您的双语字幕投射到幻灯片上。</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mdui-col">
+                    <div class="mdui-grid-tile mdui-ripple">
+                      <img class="logo-img mdui-center" src="images/interpreter_instant_md_round.png" />
+                      <div class="mdui-card-primary mdui-text-center">
+                        <div class="mdui-card-primary-title">Instant</div>
+                        <div class="mdui-card-primary-subtitle">即时查看器，无需安装，扫面二维码或输入可用的会话代码后即可使用。</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-bind:key="'download'" v-if="router==='download'" class="mdui-container">
+          <div class="mdui-card mdui-m-t-2">
+            <div class="mdui-card-media">
+              <img src="images/posters/1.jpg" />
+              <div class="mdui-card-media-covered mdui-card-media-covered-top mdui-card-media-covered-gradient">
+                <div class="mdui-card-primary">
+                  <div class="mdui-card-primary-title mdui-float-right">
+                    <img class="logo-img" src="images/interpreter_white_md.png">
+                  </div>
+
+                  <div class="mdui-card-primary-title">
+                    <i class="mdui-icon material-icons">translate</i> 获取 Interpreter
+                  </div>
+                  <div class="mdui-card-primary-subtitle">免费使用即时口译服务</div>
+
+                </div>
+              </div>
+
+              <div class="mdui-card-media-covered mdui-card-media-covered mdui-card-media-covered-gradient">
+
+                <!-- 移动端隐藏 -->
+                <div class="mdui-row mdui-hidden-xs-down">
+                  <div class="mdui-col-xs-12 mdui-col-sm-5 mdui-col-md-4">
+                    <div class="mdui-card-primary mdui-float-left">
+                      <div class="mdui-card-primary-title">选择您需要的...</div>
+                      <div class="mdui-card-primary-subtitle">下载以使用您的即时口译。</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 移动端 -->
+          <div class="mdui-card mdui-m-t-2" id="intp-app">
+            <div class="mdui-card-header">
+              <img class="mdui-card-header-avatar" src="images/interpreter_white_md_round.png" />
+              <div class="mdui-card-header-title">Interpreter</div>
+              <div class="mdui-card-header-subtitle">移动应用</div>
+            </div>
+            <div class="mdui-card-media">
+              <img src="images/posters/2_banner.jpg" />
+            </div>
+            <div class="mdui-card-content">
+              <ul class="mdui-list">
+                <li class="mdui-list-item mdui-ripple">
+                  <i class="mdui-list-item-avatar mdui-icon material-icons">timer</i>
+                  <div class="mdui-list-item-content">
+                    <div class="mdui-list-item-title">平台要求</div>
+                    <div class="mdui-list-item-text">Android 5.0及以上版本</div>
+                  </div>
+                  <i class="mdui-list-item-icon mdui-icon material-icons">info</i>
+                </li>
+                <li class="mdui-list-item mdui-ripple">
+                  <i class="mdui-list-item-avatar mdui-icon material-icons">code</i>
+                  <div class="mdui-list-item-content">
+                    <div class="mdui-list-item-title">版本号</div>
+                    <div class="mdui-list-item-text">0.6.2 Beta</div>
+                  </div>
+                  <i class="mdui-list-item-icon mdui-icon material-icons">info</i>
+                </li>
+                <li class="mdui-list-item mdui-ripple">
+                  <i class="mdui-list-item-avatar mdui-icon material-icons">folder</i>
+                  <div class="mdui-list-item-content">
+                    <div class="mdui-list-item-title">文件大小</div>
+                    <div class="mdui-list-item-text">20.6 MB</div>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="mdui-card-actions mdui-card-actions-stacked">
+                <button class="mdui-btn mdui-ripple mdui-color-teal-500" onclick="location.href='download/interpreter_latest.apk'">
+                  <i class="mdui-icon material-icons">file_download</i>
+                  APK下载
+                </button>
+                <button class="mdui-btn mdui-ripple mdui-ripple-white mdui-color-teal-500">
+                  <i class="mdui-icon material-icons">apps</i>
+                  从应用商店下载
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 桌面端 -->
+          <div class="mdui-card mdui-m-t-2" id="intp-sd">
+            <div class="mdui-card-header">
+              <img class="mdui-card-header-avatar" src="images/interpreter_display_md_round.png" />
+
+              <div class="mdui-card-header-title">Interpreter Subtitle Display</div>
+              <div class="mdui-card-header-subtitle">桌面端字幕显示器</div>
+            </div>
+            <div class="mdui-card-media">
+              <img src="images/posters/3_banner.jpg" />
+            </div>
+            <div class="mdui-card-content">
+              <ul class="mdui-list">
+                <li class="mdui-list-item mdui-ripple">
+                  <div class="mdui-list-item-content">
+                    <div class="mdui-list-item-title">
+                      <i class="mdui-list-item-icon mdui-icon material-icons">info</i> 我应该下载哪个版本？</div>
+                    <div class="mdui-list-item-text">本桌面客户端适用于所有运行有JRE平台的计算机。 Win 32位版本对应安装有32位 JRE (Java 运行环境) 的 Windows 计算机，Win 64位版本对应安装有64位 JRE 的 Windows
+                      计算机。 64位计算机亦有可能安装32位 JRE，请以计算机运行的 JRE 版本为准。 MAC 和 Linux 可以直接在安装JRE后运行JAR文件。</div>
+                  </div>
+                </li>
+                <li class="mdui-list-item mdui-ripple">
+                  <i class="mdui-list-item-avatar mdui-icon material-icons">code</i>
+                  <div class="mdui-list-item-content">
+                    <div class="mdui-list-item-title">版本</div>
+                    <div class="mdui-list-item-text">0.2.0</div>
+                  </div>
+                  <i class="mdui-list-item-icon mdui-icon material-icons">info</i>
+                </li>
+                <li class="mdui-list-item mdui-ripple">
+                  <i class="mdui-list-item-avatar mdui-icon material-icons">folder</i>
+                  <div class="mdui-list-item-content">
+                    <div class="mdui-list-item-title">文件大小</div>
+                    <div class="mdui-list-item-text">3 MB</div>
+                  </div>
+                </li>
+              </ul>
+              <div class="mdui-card-actions mdui-card-actions-stacked">
+                <button class="mdui-btn mdui-ripple mdui-ripple-white mdui-color-light-blue-700 " onclick="location.href='download/interpreter_sd_latest.jar'">
+                  <i class="mdui-icon material-icons">laptop_mac</i>
+                  通用 JAR 下载
+                </button>
+                <button class="mdui-btn mdui-ripple mdui-ripple-white mdui-color-light-blue-700 ">
+                  <i class="mdui-icon material-icons">laptop_windows</i>
+                  Win 32位 JRE 下载
+                </button>
+                <button class="mdui-btn mdui-ripple mdui-ripple-white mdui-color-light-blue-700 ">
+                  <i class="mdui-icon material-icons">laptop_windows</i>
+                  Win 64位 JRE 下载
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition-group>
+
+      <div class="mdui-m-t-2">
+        <p style="font-weight: 300; text-align: center">服务条款 开源协定 反馈</p>
+        <p style="font-weight: 300; text-align: center">©2018. Interpreter from NEU. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script src="js/intp.js"></script>
+  <script>
+
+    function loadSession(target) {
+      var id;
+      if (target === 0) {
+        id = document.getElementById("view-id-1").value;
+      } else if (target === 1) {
+        id = document.getElementById("view-id-2").value;
+      }
+      if (id.length === 5) {
+        window.location = "/" + id;
+      }
+    }
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        router: 'index'
+      }
+    });
+
+
+  </script>
+</body>
+
+</html>
